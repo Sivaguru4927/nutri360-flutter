@@ -1,0 +1,31 @@
+# ── Secrets & credentials ────────────────────────────────────
+.env
+*.jks
+*.keystore
+google-services.json
+GoogleService-Info.plist
+
+# ── Flutter / Dart build artifacts ───────────────────────────
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+*.g.dart        # generated Hive adapters (tracked after first build_runner run)
+
+# ── Android ──────────────────────────────────────────────────
+android/.gradle/
+android/local.properties
+android/app/debug.keystore
+
+# ── iOS ──────────────────────────────────────────────────────
+ios/Pods/
+ios/.symlinks/
+
+# ── IDE ──────────────────────────────────────────────────────
+.idea/
+.vscode/settings.json
+*.swp
+
+# ── OS ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
