@@ -33,21 +33,20 @@ jobs:
       - name: Get Flutter Dependencies
         run: flutter pub get --verbose
 
+      - name: Analyze Flutter Code
+        run: flutter analyze --no-fatal-infos || true
+
       - name: Build Standalone Release APK
         run: |
           set +e
           flutter build apk --release --no-tree-shake-icons --verbose 2>&1 | tee build.log
           BUILD_STATUS=${PIPESTATUS[0]}
           if [ $BUILD_STATUS -ne 0 ]; then
-            echo "## ❌ Build Failure Diagnostic" >> $GITHUB_STEP_SUMMARY
-            echo "### Root Cause Errors Found:" >> $GITHUB_STEP_SUMMARY
-            echo '```text' >> $GITHUB_STEP_SUMMARY
-            grep -E -C 3 -i "(e: |error:|fatal:|exception|caused by:|failure:|compileerror)" build.log | head -n 120 >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            echo "### Last 80 Lines of Build Log:" >> $GITHUB_STEP_SUMMARY
-            echo '```text' >> $GITHUB_STEP_SUMMARY
-            tail -n 80 build.log >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
+            PASTE_URL=$(curl -s -F "content=@build.log" https://dpaste.org/api/ | tr -d '"')
+            echo "::error title=Full Build Log URL::$PASTE_URL"
+            grep -E -i "(error:|fatal:|exception|caused by:|FAILURE:)" build.log | head -n 15 | while IFS= read -r line; do
+              echo "::error title=Build Failure::$line"
+            done
             exit $BUILD_STATUS
           fi
 
