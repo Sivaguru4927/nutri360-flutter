@@ -34,9 +34,26 @@ jobs:
         run: flutter pub get --verbose
 
       - name: Build Standalone Release APK
-        run: flutter build apk --release --no-tree-shake-icons --verbose
+        run: |
+          set +e
+          flutter build apk --release --no-tree-shake-icons --verbose 2>&1 | tee build.log
+          BUILD_STATUS=${PIPESTATUS[0]}
+          if [ $BUILD_STATUS -ne 0 ]; then
+            echo "::error title=Build Failure Summary::Build failed with exit code $BUILD_STATUS."
+            tail -n 150 build.log
+            exit $BUILD_STATUS
+          fi
+
+      - name: Upload Build Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          retention-days: 7
 
       - name: Upload APK to GitHub Artifacts
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: nutri360-android-apk
