@@ -24,21 +24,18 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.nutri360.app"
-    compileSdk = 34
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     defaultConfig {
         applicationId = "com.nutri360.app"
         minSdk = 24 // Required for CameraX, ML Kit and BLE
-        targetSdk = 34
+        targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
 
@@ -51,6 +48,13 @@ android {
             minifyEnabled = false
             shrinkResources = false
         }
+    }
+}
+
+// Kotlin 2.2+ removed the old `kotlinOptions {}` block
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
