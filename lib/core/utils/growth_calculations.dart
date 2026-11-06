@@ -27,6 +27,7 @@
 // =============================================================================
 
 import 'dart:math' as math;
+import '../models/child.dart'; // Unified Sex enum (male, female, other)
 
 // ---------------------------------------------------------------------------
 // Enums
@@ -49,13 +50,6 @@ enum GrowthStatus {
   /// Measurement or date-of-birth data is missing or physiologically
   /// implausible; Z-score cannot be computed.
   insufficientData,
-}
-
-/// Biological sex used to select the correct WHO LMS reference table.
-/// WHO publishes separate curves for boys and girls.
-enum Sex {
-  male,
-  female,
 }
 
 // ---------------------------------------------------------------------------

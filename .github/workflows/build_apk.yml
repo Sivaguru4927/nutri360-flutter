@@ -23,7 +23,6 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.x'
           channel: 'stable'
           cache: true
 
@@ -34,6 +33,9 @@ jobs:
 
       - name: Get Flutter Dependencies
         run: flutter pub get
+
+      - name: Check Code Quality
+        run: flutter analyze || true
 
       - name: Build Standalone Release APK
         run: flutter build apk --release --no-tree-shake-icons
