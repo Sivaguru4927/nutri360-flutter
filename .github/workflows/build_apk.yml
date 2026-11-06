@@ -34,7 +34,7 @@ jobs:
         run: flutter pub get --verbose
 
       - name: Build Standalone Release APK
-        run: flutter build apk --release --no-tree-shake-icons
+        run: flutter build apk --release --no-tree-shake-icons --verbose
 
       - name: Upload APK to GitHub Artifacts
         uses: actions/upload-artifact@v4

@@ -217,7 +217,7 @@ class _ChildProfileScreenState extends State<ChildProfileScreen> {
                     color: child.sex == Sex.female ? Colors.pink.shade300 : AppColors.primary300,
                     width: 2,
                   ),
-                ],
+                ),
                 child: Center(
                   child: Text(
                     child.name.isNotEmpty ? child.name[0] : 'C',
