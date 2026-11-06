@@ -42,10 +42,9 @@ jobs:
           flutter build apk --release --no-tree-shake-icons --verbose 2>&1 | tee build.log
           BUILD_STATUS=${PIPESTATUS[0]}
           if [ $BUILD_STATUS -ne 0 ]; then
-            PASTE_URL=$(curl -s -F "content=@build.log" https://dpaste.org/api/ | tr -d '"')
-            echo "::error title=Full Build Log URL::$PASTE_URL"
-            grep -E -i "(error:|fatal:|exception|caused by:|FAILURE:)" build.log | head -n 15 | while IFS= read -r line; do
-              echo "::error title=Build Failure::$line"
+            echo "::error title=Build Status::Build failed with exit code $BUILD_STATUS"
+            grep -A 30 "\* What went wrong:" build.log | while IFS= read -r line; do
+              echo "::error title=Gradle Failure::$line"
             done
             exit $BUILD_STATUS
           fi
