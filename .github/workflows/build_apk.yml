@@ -39,14 +39,14 @@ jobs:
       - name: Build Standalone Release APK
         run: |
           set +e
-          flutter build apk --release --no-tree-shake-icons --verbose 2>&1 | tee build.log
-          BUILD_STATUS=${PIPESTATUS[0]}
-          if [ $BUILD_STATUS -ne 0 ]; then
-            echo "::error title=Build Status::Build failed with exit code $BUILD_STATUS"
-            grep -A 30 "\* What went wrong:" build.log | while IFS= read -r line; do
-              echo "::error title=Gradle Failure::$line"
-            done
-            exit $BUILD_STATUS
+          flutter build apk --release --no-tree-shake-icons 2>&1 | tee build.log
+          STATUS=${PIPESTATUS[0]}
+          if [ $STATUS -ne 0 ]; then
+            echo "===== WHAT WENT WRONG ====="
+            grep -n -A 12 -E "What went wrong|FAILURE:|Execution failed|error:" build.log | tail -n 80
+            echo "===== LAST 60 LINES ====="
+            tail -n 60 build.log
+            exit $STATUS
           fi
 
       - name: Upload Build Log
