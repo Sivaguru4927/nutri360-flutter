@@ -40,8 +40,8 @@ class AppTypography {
   AppTypography._();
 
   // ── Font family ────────────────────────────────────────────────────────────
-  /// The custom font registered in pubspec.yaml under `fonts:`.
-  static const String _fontFamily = 'Inter';
+  /// Uses default system font (Roboto on Android / SF on iOS).
+  static const String? _fontFamily = null;
 
   // ── Design-token: font sizes (dp / logical pixels) ─────────────────────────
   static const double _sizeXs      = 11; // xs

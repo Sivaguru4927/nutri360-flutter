@@ -14,6 +14,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -32,7 +33,8 @@ class AttentionScreen extends StatefulWidget {
   State<AttentionScreen> createState() => _AttentionScreenState();
 }
 
-class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProviderStateMixin {
+class _AttentionScreenState extends State<AttentionScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _stimulusController;
   bool _isSessionRunning = false;
   int _dwellPercentage = 84;
@@ -80,7 +82,9 @@ class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProv
           children: [
             Text(
               'Target Dwell Rate: $_dwellPercentage%',
-              style: AppTypography.titleMedium.copyWith(color: AppColors.primary700),
+              style: AppTypography.titleMedium.copyWith(
+                color: AppColors.primary700,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
@@ -97,18 +101,26 @@ class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProv
               ),
               child: Text(
                 'Child demonstrates steady smooth visual pursuit and normal saccadic fixation on moving primary targets.',
-                style: AppTypography.bodySmall.copyWith(color: AppColors.semanticLowText),
+                style: AppTypography.bodySmall.copyWith(
+                  color: AppColors.semanticLowText,
+                ),
               ),
             ),
             const SizedBox(height: 10),
             Text(
               'Note: This is an observational developmental screening test and does not constitute a clinical ophthalmological or neuro-ophthalmic diagnosis.',
-              style: AppTypography.labelSmall.copyWith(color: AppColors.textMuted, fontSize: 10),
+              style: AppTypography.labelSmall.copyWith(
+                color: AppColors.textMuted,
+                fontSize: 10,
+              ),
             ),
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Close')),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
         ],
       ),
     );
@@ -144,12 +156,18 @@ class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProv
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      const Icon(Icons.lightbulb_outline_rounded, size: 18, color: AppColors.amber600),
+                      const Icon(
+                        Icons.lightbulb_outline_rounded,
+                        size: 18,
+                        color: AppColors.amber600,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           'Ensure adequate room lighting and position the device at infant eye level.',
-                          style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
+                          style: AppTypography.bodySmall.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
                         ),
                       ),
                     ],
@@ -161,7 +179,10 @@ class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProv
             const SizedBox(height: 20),
 
             // ── Previous Assessment Metrics ───────────────────────
-            Text('Previous Screening Summary', style: AppTypography.titleMedium),
+            Text(
+              'Previous Screening Summary',
+              style: AppTypography.titleMedium,
+            ),
             const SizedBox(height: 12),
 
             Row(
@@ -199,12 +220,18 @@ class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProv
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.info_outline_rounded, size: 18, color: AppColors.semanticInfoBadge),
+                  const Icon(
+                    Icons.info_outline_rounded,
+                    size: 18,
+                    color: AppColors.semanticInfoBadge,
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       'This observational module monitors early visual exploration and gaze stability for cognitive developmental milestones. Consult your pediatrician for clinical assessments.',
-                      style: AppTypography.bodySmall.copyWith(color: AppColors.semanticInfoText),
+                      style: AppTypography.bodySmall.copyWith(
+                        color: AppColors.semanticInfoText,
+                      ),
                     ),
                   ),
                 ],
@@ -241,21 +268,35 @@ class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProv
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white24,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Row(
                       children: [
-                        Icon(Icons.videocam_rounded, color: Colors.greenAccent, size: 16),
+                        Icon(
+                          Icons.videocam_rounded,
+                          color: Colors.greenAccent,
+                          size: 16,
+                        ),
                         SizedBox(width: 6),
-                        Text('Front Camera Tracking Active', style: TextStyle(color: Colors.white, fontSize: 12)),
+                        Text(
+                          'Front Camera Tracking Active',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close_rounded, color: Colors.white, size: 28),
+                    icon: const Icon(
+                      Icons.close_rounded,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                     onPressed: _finishScreeningSession,
                   ),
                 ],
@@ -268,8 +309,12 @@ class _AttentionScreenState extends State<AttentionScreen> with SingleTickerProv
               builder: (context, child) {
                 final t = _stimulusController.value;
                 // Lissajous curve movement across screen
-                final x = (size.width * 0.15) + (size.width * 0.70) * (0.5 + 0.5 * sin(2 * pi * t));
-                final y = (size.height * 0.25) + (size.height * 0.45) * (0.5 + 0.5 * sin(4 * pi * t));
+                final x =
+                    (size.width * 0.15) +
+                    (size.width * 0.70) * (0.5 + 0.5 * sin(2 * pi * t));
+                final y =
+                    (size.height * 0.25) +
+                    (size.height * 0.45) * (0.5 + 0.5 * sin(4 * pi * t));
 
                 return Positioned(
                   left: x,
@@ -335,11 +380,27 @@ class _MetricCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: AppTypography.labelSmall.copyWith(color: AppColors.textSecondary)),
+          Text(
+            label,
+            style: AppTypography.labelSmall.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(value, style: AppTypography.titleLarge.copyWith(color: color, fontWeight: FontWeight.bold)),
+          Text(
+            value,
+            style: AppTypography.titleLarge.copyWith(
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 2),
-          Text(subtext, style: AppTypography.labelSmall.copyWith(color: AppColors.textMuted)),
+          Text(
+            subtext,
+            style: AppTypography.labelSmall.copyWith(
+              color: AppColors.textMuted,
+            ),
+          ),
         ],
       ),
     );
