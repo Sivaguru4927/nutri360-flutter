@@ -26,16 +26,12 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Prepare Environment File
+      - name: Prepare Android Config
         run: |
-          cp .env.example .env
           echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
 
       - name: Get Flutter Dependencies
-        run: flutter pub get
-
-      - name: Check Code Quality
-        run: flutter analyze || true
+        run: flutter pub get --verbose
 
       - name: Build Standalone Release APK
         run: flutter build apk --release --no-tree-shake-icons

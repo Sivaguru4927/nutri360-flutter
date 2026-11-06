@@ -50,10 +50,8 @@ Future<void> main() async {
   // Required before any async work in main()
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ── Step 1: Load environment variables from .env ─────────
-  // This keeps Supabase keys and Atlas App ID OUT of the compiled source code.
-  // .env is listed in .gitignore so it is never committed.
-  await dotenv.load(fileName: '.env');
+  // ── Step 1: Load environment variables ───────────────────
+  await dotenv.load(fileName: 'assets/app.env');
 
   // ── Step 2: Initialise Supabase ──────────────────────────
   // Uses the same project credentials from the React Native app:
