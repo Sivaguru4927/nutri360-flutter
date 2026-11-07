@@ -21,7 +21,7 @@ import 'dart:convert'; // json encode/decode for SharedPreferences persistence
 
 import 'package:flutter/foundation.dart'; // ChangeNotifier
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 
 import '../models/user.dart'; // Our own User model (not Supabase's User type)
 

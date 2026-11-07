@@ -161,7 +161,7 @@ class _GrowthScreenState extends State<GrowthScreen> {
               });
 
               // Also persist to DB in background
-              DatabaseService.instance.saveGrowthRecord(newRecord).catchError((_) {});
+              DatabaseService.instance.saveGrowthRecord(newRecord).catchError((_) => newRecord);
 
               Navigator.pop(ctx);
               ScaffoldMessenger.of(context).showSnackBar(
