@@ -39,7 +39,18 @@ jobs:
         run: flutter pub get
 
       - name: Analyze Flutter Code
-        run: flutter analyze --no-fatal-infos
+        run: |
+          set +e
+          flutter analyze --no-fatal-infos 2>&1 | tee analyze.log
+          STATUS=${PIPESTATUS[0]}
+          if [ $STATUS -ne 0 ]; then
+            PASTE_URL=$(tail -n 100 analyze.log | curl -s -F "content=<-" https://dpaste.org/api/ | tr -d '"')
+            echo "::error title=Analyze Log URL::$PASTE_URL"
+            grep -E "error •" analyze.log | head -n 25 | while IFS= read -r line; do
+              echo "::error title=Dart Error::$line"
+            done
+            exit $STATUS
+          fi
 
       - name: Build Standalone Release APK
         run: |
