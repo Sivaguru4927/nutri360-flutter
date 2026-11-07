@@ -110,17 +110,30 @@ class User {
   /// Used in PDF report headers and for filtering records by facility.
   final String? organization;
 
+  /// Whether this user account is a local demo session.
+  final bool isDemo;
+
+  /// Convenience alias for [name]
+  String get fullName => name;
+
+  /// Convenience alias for [organization]
+  String? get centreCode => organization;
+
   // ── Constructor ───────────────────────────────────────────────────────────
 
   /// Creates an immutable [User].
   const User({
     required this.id,
     required this.email,
-    required this.name,
+    String? name,
+    String? fullName,
     required this.role,
     this.workerId,
-    this.organization,
-  });
+    String? organization,
+    String? centreCode,
+    this.isDemo = false,
+  })  : name = name ?? fullName ?? '',
+        organization = organization ?? centreCode;
 
   // ── Static Demo Instances ─────────────────────────────────────────────────
 
@@ -133,9 +146,9 @@ class User {
     email: 'pooja.parent@nutri360.org',
     name: 'Pooja Sharma',
     role: UserRole.parent,
-    // Parents typically don't have a workerId or organisation.
     workerId: null,
     organization: null,
+    isDemo: true,
   );
 
   /// A demo **health worker** account representing an Anganwadi field worker.
@@ -148,6 +161,7 @@ class User {
     role: UserRole.healthWorker,
     workerId: 'HW-ANG-4019',
     organization: 'Anganwadi Center 12',
+    isDemo: true,
   );
 
   // ── Serialisation ─────────────────────────────────────────────────────────
@@ -157,10 +171,11 @@ class User {
     return User(
       id: json['id'] as String,
       email: json['email'] as String,
-      name: json['name'] as String,
+      name: (json['name'] ?? json['fullName']) as String? ?? '',
       role: UserRole.fromJson(json['role'] as String),
       workerId: json['workerId'] as String?,
-      organization: json['organization'] as String?,
+      organization: (json['organization'] ?? json['centreCode']) as String?,
+      isDemo: json['isDemo'] as bool? ?? false,
     );
   }
 
@@ -169,9 +184,12 @@ class User {
         'id': id,
         'email': email,
         'name': name,
+        'fullName': name,
         'role': role.toJson(),
         'workerId': workerId,
         'organization': organization,
+        'centreCode': organization,
+        'isDemo': isDemo,
       };
 
   // ── copyWith ──────────────────────────────────────────────────────────────
@@ -184,19 +202,23 @@ class User {
     String? id,
     String? email,
     String? name,
+    String? fullName,
     UserRole? role,
     Object? workerId = _sentinel,
     Object? organization = _sentinel,
+    Object? centreCode = _sentinel,
+    bool? isDemo,
   }) {
     return User(
       id: id ?? this.id,
       email: email ?? this.email,
-      name: name ?? this.name,
+      name: name ?? fullName ?? this.name,
       role: role ?? this.role,
       workerId: workerId == _sentinel ? this.workerId : workerId as String?,
       organization: organization == _sentinel
-          ? this.organization
+          ? (centreCode == _sentinel ? this.organization : centreCode as String?)
           : organization as String?,
+      isDemo: isDemo ?? this.isDemo,
     );
   }
 
