@@ -47,10 +47,11 @@ jobs:
           flutter build apk --release --no-tree-shake-icons 2>&1 | tee build.log
           STATUS=${PIPESTATUS[0]}
           if [ $STATUS -ne 0 ]; then
-            echo "===== WHAT WENT WRONG ====="
-            grep -n -A 12 -E "What went wrong|FAILURE:|Execution failed|error:" build.log | tail -n 80
-            echo "===== LAST 60 LINES ====="
-            tail -n 60 build.log
+            PASTE_URL=$(tail -n 200 build.log | curl -s -F "content=<-" https://dpaste.org/api/ | tr -d '"')
+            echo "::error title=Build Log Tail::$PASTE_URL"
+            grep -A 25 -E "(What went wrong|FAILURE:|Execution failed)" build.log | while IFS= read -r line; do
+              echo "::error title=Build Error::$line"
+            done
             exit $STATUS
           fi
 
