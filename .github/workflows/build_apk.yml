@@ -39,7 +39,7 @@ jobs:
         run: flutter pub get
 
       - name: Analyze Flutter Code
-        run: flutter analyze --no-fatal-infos || true
+        run: flutter analyze --no-fatal-infos
 
       - name: Build Standalone Release APK
         run: |

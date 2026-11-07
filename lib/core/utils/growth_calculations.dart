@@ -127,6 +127,11 @@ class ChildGrowthEvaluation {
   /// Null when [headCircumferenceCm] was not provided by the caller.
   final GrowthMetricResult? hcz;
 
+  /// Convenience aliases used by screens
+  GrowthMetricResult get weightForAge => waz;
+  GrowthMetricResult get heightForAge => haz;
+  GrowthMetricResult get bmiForAge => baz;
+
   /// True when any single metric Z-score falls below -2 SD (WHO SAM threshold).
   /// Triggers the red-flag notification pipeline in Nutri360.
   final bool hasRedFlagAlert;

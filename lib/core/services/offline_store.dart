@@ -6,6 +6,7 @@
 // =============================================================================
 
 import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -38,8 +39,9 @@ class OfflineStore {
   }
 
   void _startConnectivityWatcher() {
-    _connectivitySubscription =
-        Connectivity().onConnectivityChanged.listen((results) {
+    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
+      results,
+    ) {
       final isOnline = results.any((r) => r != ConnectivityResult.none);
       if (isOnline && !_isFlushing) {
         _flushQueues();
@@ -64,7 +66,9 @@ class OfflineStore {
       if (raw == null) continue;
 
       try {
-        final record = GrowthRecord.fromJson(Map<String, dynamic>.from(raw as Map));
+        final record = GrowthRecord.fromJson(
+          Map<String, dynamic>.from(raw as Map),
+        );
         await _db.saveGrowthRecord(record);
         await _growthQueueBox.delete(key);
       } catch (e) {

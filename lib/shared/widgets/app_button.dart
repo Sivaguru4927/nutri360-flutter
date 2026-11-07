@@ -17,8 +17,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import 'package:flutter/material.dart';
-import '../../../lib/core/theme/app_colors.dart';
-import '../../../lib/core/theme/app_typography.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_typography.dart';
 
 /// Variant controls the visual style of the button
 enum AppButtonVariant { primary, secondary, ghost }
@@ -107,7 +107,7 @@ class AppButton extends StatelessWidget {
             onPressed: effectiveOnPressed,
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.primary500,
-              side: const BorderSide(color: AppColors.primary500, width: 1.5),
+              side: BorderSide(color: AppColors.primary500, width: 1.5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),

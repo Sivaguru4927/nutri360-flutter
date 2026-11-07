@@ -15,8 +15,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import 'package:flutter/material.dart';
-import '../../../lib/core/theme/app_colors.dart';
-import '../../../lib/core/theme/app_typography.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_typography.dart';
 
 enum StatusBadgeVariant { normal, monitor, highPriority, info }
 
