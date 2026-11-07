@@ -26,12 +26,17 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Flutter Doctor
+        run: flutter doctor -v
+
       - name: Prepare Android Config
         run: |
           echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
+          echo "flutter.versionCode=1" >> android/local.properties
+          echo "flutter.versionName=1.0" >> android/local.properties
 
       - name: Get Flutter Dependencies
-        run: flutter pub get --verbose
+        run: flutter pub get
 
       - name: Analyze Flutter Code
         run: flutter analyze --no-fatal-infos || true

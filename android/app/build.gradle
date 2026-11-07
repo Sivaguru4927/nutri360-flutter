@@ -63,8 +63,8 @@ flutter {
 }
 
 dependencies {
-    // AndroidX & Material support
-    implementation "androidx.window:window:1.2.0"
-    implementation "androidx.window:window-java:1.2.0"
+    // AndroidX & Material support — versions aligned with AGP 8.11.1 / compileSdk 36
+    implementation "androidx.window:window:1.3.0"
+    implementation "androidx.window:window-java:1.3.0"
 }
 
